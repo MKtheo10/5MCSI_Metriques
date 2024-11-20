@@ -27,6 +27,10 @@ def meteo():
 def histogramme():
     return render_template('histogramme.html') #comms)
 
+@app.route('/commits/')
+def commits():
+    return render_template('commits.html') #comms)
+
 @app.route('/contact/')
 def contact():
     return render_template('contact.html') #comms)
