@@ -1,0 +1,41 @@
+from flask import Flask, request, render_template_string
+
+app = Flask(__name__)
+
+# Page de contact avec formulaire
+@app.route("/contact/", methods=["GET", "POST"])
+def contact():
+    if request.method == "POST":
+        # Récupération des données du formulaire
+        nom = request.form.get("nom")
+        prenom = request.form.get("prenom")
+        message = request.form.get("message")
+
+        # Affichage d'une page de réponse avec les données soumises
+        return render_template_string("""
+            <h2>Merci pour votre message !</h2>
+            <p><strong>Nom :</strong> {{ nom }}</p>
+            <p><strong>Prénom :</strong> {{ prenom }}</p>
+            <p><strong>Message :</strong> {{ message }}</p>
+            <a href="/contact/">Retour au formulaire</a>
+        """, nom=nom, prenom=prenom, message=message)
+
+    # Affichage du formulaire
+    return """
+        <h2>Page de contact</h2>
+        <form method="POST" action="/contact/">
+            <label for="nom">Nom :</label><br>
+            <input type="text" id="nom" name="nom" required><br><br>
+
+            <label for="prenom">Prénom :</label><br>
+            <input type="text" id="prenom" name="prenom" required><br><br>
+
+            <label for="message">Message :</label><br>
+            <textarea id="message" name="message" required></textarea><br><br>
+
+            <button type="submit">Envoyer</button>
+        </form>
+    """
+
+if __name__ == "__main__":
+    app.run(debug=True)
