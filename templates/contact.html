@@ -3,43 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page de Contact</title>
+    <title>Contactez-nous</title>
     <style>
+        /* Global Styles */
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fc;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        label, textarea, input, button {
-            display: block;
+
+        /* Card Container */
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Title */
+        h2 {
+            color: #4caf50;
+            margin-bottom: 20px;
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #4caf50;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Result Section */
+        #result {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #result h3 {
+            color: #4caf50;
             margin-bottom: 10px;
         }
-        #result {
-            margin-top: 20px;
-            border-top: 1px solid #ccc;
-            padding-top: 10px;
+
+        #result p {
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-    <h2>Page de Contact</h2>
-    <form id="contactForm">
-        <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" required>
+    <div class="container">
+        <h2>Contactez-nous</h2>
+        <form id="contactForm">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" placeholder="Entrez votre nom" required>
 
-        <label for="prenom">Prénom :</label>
-        <input type="text" id="prenom" name="prenom" required>
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Entrez votre prénom" required>
 
-        <label for="message">Message :</label>
-        <textarea id="message" name="message" required></textarea>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" placeholder="Votre message ici..." required></textarea>
 
-        <button type="button" onclick="afficherMessage()">Envoyer</button>
-    </form>
+            <button type="button" onclick="afficherMessage()">Envoyer</button>
+        </form>
 
-    <div id="result" style="display:none;">
-        <h3>Merci pour votre message !</h3>
-        <p><strong>Nom :</strong> <span id="resNom"></span></p>
-        <p><strong>Prénom :</strong> <span id="resPrenom"></span></p>
-        <p><strong>Message :</strong> <span id="resMessage"></span></p>
+        <div id="result">
+            <h3>Merci pour votre message !</h3>
+            <p><strong>Nom :</strong> <span id="resNom"></span></p>
+            <p><strong>Prénom :</strong> <span id="resPrenom"></span></p>
+            <p><strong>Message :</strong> <span id="resMessage"></span></p>
+        </div>
     </div>
 
     <script>
