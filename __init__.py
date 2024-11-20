@@ -30,6 +30,10 @@ def meteo():
 @app.route('/histogramme/')
 def histogramme():
     return render_template('histogramme.html') #comms)
+
+@app.route('/contact/')
+def contact():
+    return render_template('contact.html') #comms)
   
 if __name__ == "__main__":
   app.run(debug=True)
