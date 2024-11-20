@@ -1,41 +1,68 @@
-from flask import Flask, request, render_template_string
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page de Contact</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label, textarea, input, button {
+            display: block;
+            margin-bottom: 10px;
+        }
+        #result {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Page de Contact</h2>
+    <form id="contactForm">
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" required>
 
-app = Flask(__name__)
+        <label for="prenom">Prénom :</label>
+        <input type="text" id="prenom" name="prenom" required>
 
-# Page de contact avec formulaire
-@app.route("/contact/", methods=["GET", "POST"])
-def contact():
-    if request.method == "POST":
-        # Récupération des données du formulaire
-        nom = request.form.get("nom")
-        prenom = request.form.get("prenom")
-        message = request.form.get("message")
+        <label for="message">Message :</label>
+        <textarea id="message" name="message" required></textarea>
 
-        # Affichage d'une page de réponse avec les données soumises
-        return render_template_string("""
-            <h2>Merci pour votre message !</h2>
-            <p><strong>Nom :</strong> {{ nom }}</p>
-            <p><strong>Prénom :</strong> {{ prenom }}</p>
-            <p><strong>Message :</strong> {{ message }}</p>
-            <a href="/contact/">Retour au formulaire</a>
-        """, nom=nom, prenom=prenom, message=message)
+        <button type="button" onclick="afficherMessage()">Envoyer</button>
+    </form>
 
-    # Affichage du formulaire
-    return """
-        <h2>Page de contact</h2>
-        <form method="POST" action="/contact/">
-            <label for="nom">Nom :</label><br>
-            <input type="text" id="nom" name="nom" required><br><br>
+    <div id="result" style="display:none;">
+        <h3>Merci pour votre message !</h3>
+        <p><strong>Nom :</strong> <span id="resNom"></span></p>
+        <p><strong>Prénom :</strong> <span id="resPrenom"></span></p>
+        <p><strong>Message :</strong> <span id="resMessage"></span></p>
+    </div>
 
-            <label for="prenom">Prénom :</label><br>
-            <input type="text" id="prenom" name="prenom" required><br><br>
+    <script>
+        function afficherMessage() {
+            // Récupérer les valeurs des champs
+            const nom = document.getElementById('nom').value;
+            const prenom = document.getElementById('prenom').value;
+            const message = document.getElementById('message').value;
 
-            <label for="message">Message :</label><br>
-            <textarea id="message" name="message" required></textarea><br><br>
+            // Vérifier que tous les champs sont remplis
+            if (nom && prenom && message) {
+                // Afficher les résultats
+                document.getElementById('resNom').innerText = nom;
+                document.getElementById('resPrenom').innerText = prenom;
+                document.getElementById('resMessage').innerText = message;
+                document.getElementById('result').style.display = 'block';
 
-            <button type="submit">Envoyer</button>
-        </form>
-    """
-
-if __name__ == "__main__":
-    app.run(debug=True)
+                // Réinitialiser le formulaire
+                document.getElementById('contactForm').reset();
+            } else {
+                alert('Veuillez remplir tous les champs.');
+            }
+        }
+    </script>
+</body>
+</html>
